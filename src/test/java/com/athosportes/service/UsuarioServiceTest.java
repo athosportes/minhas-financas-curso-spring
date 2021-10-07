@@ -7,13 +7,13 @@ import com.athosportes.model.repository.UsuarioRepository;
 import com.athosportes.service.impl.UsuarioServiceImpl;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -25,16 +25,33 @@ import java.util.Optional;
 @ActiveProfiles("test")
 public class UsuarioServiceTest {
 
-    UsuarioService service;
+    @SpyBean
+    UsuarioServiceImpl service;
 
     @MockBean
     UsuarioRepository repository;
 
-    @BeforeEach
-    public void setUp() {
-        service = new UsuarioServiceImpl(repository);
-    }
+//    @BeforeEach
+//    public void setUp() {
+//        service = Mockito.spy(UsuarioServiceImpl.class);
+//        //service = new UsuarioServiceImpl(repository);
+//    }
 
+    @Test
+    public void deveSalvarUmUsuario() {
+        Mockito.doNothing().when(service).validarEmail(Mockito.anyString());
+        Usuario usuario = Usuario.builder()
+                .nome("nome")
+                .email("email@email.com")
+                .senha("senha")
+                .build();
+
+        Mockito.when(repository.save(Mockito.any(Usuario.class))).thenReturn(usuario);
+
+        Assertions.assertAll(() -> service.salvarUsuario(new Usuario()));
+
+
+    }
     @Test
     public void deveValidarEmail() {
         //cenário
