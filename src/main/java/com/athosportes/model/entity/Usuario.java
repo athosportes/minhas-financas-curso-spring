@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(schema = "financas")
+@Table(schema = "financas", name = "usuario")
 public class Usuario {
 
     @Id
@@ -31,6 +31,7 @@ public class Usuario {
     @Column
     private String senha;
 
+    @Column
     @OneToMany(mappedBy = "usuario")
     private List<Lancamento> lancamento;
 }

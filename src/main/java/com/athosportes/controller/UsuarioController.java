@@ -1,12 +1,15 @@
 package com.athosportes.controller;
 
 import com.athosportes.dto.UsuarioDTO;
+import com.athosportes.exception.ErroAutenticacao;
 import com.athosportes.exception.RegraNegocioException;
 import com.athosportes.model.entity.Usuario;
 import com.athosportes.model.repository.UsuarioRepository;
 import com.athosportes.service.UsuarioService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,11 +23,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/minhas-financas")
 public class UsuarioController {
 
+    @Autowired
     private UsuarioRepository repository;
+
+    @Autowired
     private UsuarioService service;
 
     @PostMapping
-    private ResponseEntity salvarUsuario(@RequestBody UsuarioDTO dto) {
+    public ResponseEntity salvarUsuario(@RequestBody UsuarioDTO dto) {
 
         Usuario usuario = Usuario.builder()
                 .nome(dto.getNome())
@@ -37,5 +43,16 @@ public class UsuarioController {
         } catch (RegraNegocioException ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }
+    }
+
+    @PostMapping("/autenticar")
+    public ResponseEntity autenticar(@RequestBody UsuarioDTO dto) {
+        try {
+            Usuario autenticar = service.autenticar(dto.getEmail(), dto.getSenha());
+            return ResponseEntity.ok(autenticar);
+        } catch (ErroAutenticacao ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+
     }
 }

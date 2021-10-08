@@ -5,7 +5,6 @@ import com.athosportes.model.enums.TipoLancamento;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.convert.Jsr310Converters;
 
 import javax.persistence.Entity;
 import java.math.BigDecimal;
