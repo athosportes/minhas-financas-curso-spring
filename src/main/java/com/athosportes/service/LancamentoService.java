@@ -4,6 +4,7 @@ import com.athosportes.model.entity.Lancamento;
 import com.athosportes.model.enums.StatusLancamento;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface LancamentoService {
 
@@ -18,6 +19,8 @@ public interface LancamentoService {
     void atualizaStatus(Lancamento lancamento, StatusLancamento status);
 
     void validar(Lancamento lancamento);
+
+    Optional<Lancamento> obterPorId(Long id);
 
 
 }

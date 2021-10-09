@@ -3,6 +3,7 @@ package com.athosportes.model.entity;
 import com.athosportes.model.enums.StatusLancamento;
 import com.athosportes.model.enums.TipoLancamento;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +17,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(schema = "financas")
 public class Lancamento {
 

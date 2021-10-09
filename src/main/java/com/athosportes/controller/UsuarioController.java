@@ -18,16 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@AllArgsConstructor
-@NoArgsConstructor
-@RequestMapping("/minhas-financas")
+@RequiredArgsConstructor
+@RequestMapping("/minhas-financas/usuario")
 public class UsuarioController {
 
-    @Autowired
-    private UsuarioRepository repository;
-
-    @Autowired
-    private UsuarioService service;
+    private final UsuarioRepository repository;
+    private final UsuarioService service;
 
     @PostMapping
     public ResponseEntity salvarUsuario(@RequestBody UsuarioDTO dto) {

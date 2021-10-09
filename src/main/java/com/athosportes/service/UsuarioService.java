@@ -3,6 +3,8 @@ package com.athosportes.service;
 import com.athosportes.model.entity.Usuario;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public interface UsuarioService {
 
@@ -11,6 +13,8 @@ public interface UsuarioService {
     Usuario salvarUsuario (Usuario usuario);
 
     void validarEmail(String email);
+
+    Optional<Usuario> obterPorId(Long id);
 
 
 }
